@@ -31,6 +31,11 @@ PIXABAY_API_KEY = os.getenv('PIXABAY_API_KEY', '')
 YOUTUBE_CLIENT_SECRET = os.getenv('YOUTUBE_CLIENT_SECRET', 'client_secret.json')
 YOUTUBE_TOKEN_PICKLE = os.getenv('YOUTUBE_TOKEN_PICKLE', 'youtube_token.pickle')
 
+# Target YouTube Channel
+YOUTUBE_CHANNEL_ID = os.getenv('YOUTUBE_CHANNEL_ID', 'UCantonockr7618')
+YOUTUBE_CHANNEL_URL = os.getenv('YOUTUBE_CHANNEL_URL', 'https://www.youtube.com/@antonockr7618')
+YOUTUBE_CHANNEL_NAME = os.getenv('YOUTUBE_CHANNEL_NAME', 'antonockr7618')
+
 # ============== VIDEO SETTINGS ==============
 VIDEO_WIDTH = 1080
 VIDEO_HEIGHT = 1920  # Vertical (9:16)

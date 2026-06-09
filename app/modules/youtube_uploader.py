@@ -26,7 +26,10 @@ from config.settings import (
     YOUTUBE_TOKEN_PICKLE,
     DEFAULT_VIDEO_CATEGORY,
     DEFAULT_PRIVACY_STATUS,
-    AUTO_GENERATE_THUMBNAIL
+    AUTO_GENERATE_THUMBNAIL,
+    YOUTUBE_CHANNEL_ID,
+    YOUTUBE_CHANNEL_URL,
+    YOUTUBE_CHANNEL_NAME
 )
 
 
@@ -403,6 +406,15 @@ class YouTubeUploader:
             
         except Exception as e:
             return {'status': 'error', 'message': str(e)}
+
+    def get_target_channel(self) -> Dict:
+        """Get configured target channel (@antonockr7618)"""
+        return {
+            'channel_id': YOUTUBE_CHANNEL_ID,
+            'channel_name': YOUTUBE_CHANNEL_NAME,
+            'channel_url': YOUTUBE_CHANNEL_URL,
+            'status': 'configured'
+        }
 
 
 class BatchUploader:

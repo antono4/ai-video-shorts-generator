@@ -892,6 +892,96 @@
         .connect-btn.connected {
             background: var(--success);
         }
+
+        /* Channel Info */
+        .channel-info {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .channel-info.active {
+            display: block;
+        }
+
+        .channel-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .channel-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .channel-details h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .channel-details p {
+            font-size: 0.75rem;
+            color: var(--light-gray);
+        }
+
+        .channel-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .channel-stat {
+            text-align: center;
+        }
+
+        .channel-stat-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .channel-stat-label {
+            font-size: 0.625rem;
+            color: var(--light-gray);
+        }
+
+        .disconnect-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: transparent;
+            border: 1px solid var(--danger);
+            border-radius: 8px;
+            color: var(--danger);
+            font-size: 0.875rem;
+            cursor: pointer;
+            margin-top: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .disconnect-btn:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        /* OAuth Popup */
+        .oauth-note {
+            font-size: 0.75rem;
+            color: var(--light-gray);
+            text-align: center;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body>
@@ -1081,12 +1171,43 @@
                     <span class="youtube-icon">📺</span>
                     <div class="youtube-info">
                         <h3>YouTube Integration</h3>
-                        <p>Connect untuk auto upload video</p>
+                        <p>Channel: <strong>@antonockr7618</strong></p>
                     </div>
                 </div>
                 <button class="connect-btn" id="youtubeConnectBtn" onclick="connectYouTube()">
-                    🔗 Connect YouTube Account
+                    🔗 Connect YouTube Channel
                 </button>
+                <div class="oauth-note">
+                    ⚠️ OAuth diperlukan untuk upload video otomatis
+                </div>
+                
+                <!-- Channel Info (shown when connected) -->
+                <div class="channel-info" id="channelInfo">
+                    <div class="channel-header">
+                        <div class="channel-avatar">👤</div>
+                        <div class="channel-details">
+                            <h4 id="channelName">antonockr7618</h4>
+                            <p>YouTube Channel Connected</p>
+                        </div>
+                    </div>
+                    <div class="channel-stats">
+                        <div class="channel-stat">
+                            <div class="channel-stat-value" id="subscriberCount">-</div>
+                            <div class="channel-stat-label">Subscribers</div>
+                        </div>
+                        <div class="channel-stat">
+                            <div class="channel-stat-value" id="videoCount">-</div>
+                            <div class="channel-stat-label">Videos</div>
+                        </div>
+                        <div class="channel-stat">
+                            <div class="channel-stat-value" id="totalViews">-</div>
+                            <div class="channel-stat-label">Views</div>
+                        </div>
+                    </div>
+                    <button class="disconnect-btn" onclick="disconnectYouTube()">
+                        🔌 Disconnect Channel
+                    </button>
+                </div>
             </div>
 
             <!-- Stats -->
@@ -1333,6 +1454,9 @@
             
             // Load stats
             loadStats();
+
+            // Load YouTube connection state
+            loadYouTubeState();
             
             // Check schedule toggle
             document.getElementById('autoUpload').addEventListener('change', (e) => {
@@ -1349,6 +1473,7 @@
             // Initialize
             addLog('Sistem initialized', 'info');
             addLog('AI Video Shorts Generator siap digunakan!', 'success');
+            addLog('📺 Target YouTube Channel: @antonockr7618', 'info');
         });
 
         // ==================== TOPIC SELECTION ====================
@@ -1586,51 +1711,239 @@
         // ==================== UPLOAD TO YOUTUBE ====================
         function uploadToYouTube() {
             if (!youTubeConnected) {
-                alert('Silakan connect YouTube terlebih dahulu!');
+                alert('⚠️ Silakan connect YouTube channel @antonockr7618 terlebih dahulu!');
                 openModal('resultsModal');
                 closeModal('resultsModal');
                 return;
             }
 
             if (!generatedVideo) {
-                alert('Tidak ada video untuk diupload');
+                alert('❌ Tidak ada video untuk diupload');
                 return;
             }
 
-            showLoading('📤 Uploading to YouTube...');
-            addLog('Memulai upload ke YouTube...', 'info');
+            // Show upload confirmation
+            const confirmUpload = confirm(
+                '📤 Upload Video ke YouTube\n\n' +
+                '📺 Channel: @antonockr7618\n' +
+                '🎬 Video: ' + generatedVideo.script.title + '\n' +
+                '⏱️ Durasi: ' + generatedVideo.duration + ' detik\n\n' +
+                'Klik OK untuk memulai upload...'
+            );
+
+            if (!confirmUpload) {
+                return;
+            }
+
+            showLoading('📤 Uploading to @antonockr7618...');
+            addLog('📤 Memulai upload ke YouTube channel @antonockr7618...', 'info');
+
+            // Simulate upload process
+            const uploadSteps = [
+                { text: '📹 Menyiapkan video...', duration: 1000 },
+                { text: '📊 Mengupload thumbnail...', duration: 800 },
+                { text: '✏️ Menambahkan metadata...', duration: 600 },
+                { text: '🔍 Processing video...', duration: 1500 },
+                { text: '✅ Video published!', duration: 500 }
+            ];
+
+            let stepIndex = 0;
+            const stepInterval = setInterval(() => {
+                if (stepIndex < uploadSteps.length) {
+                    addLog(uploadSteps[stepIndex].text, 'info');
+                    stepIndex++;
+                } else {
+                    clearInterval(stepInterval);
+                }
+            }, 800);
 
             setTimeout(() => {
                 hideLoading();
+                clearInterval(stepInterval);
+
                 stats.uploadsToday++;
                 saveStats();
                 
-                addLog('✅ Video berhasil diupload ke YouTube!', 'success');
+                // Generate video ID
+                const videoId = 'dQw4w9WgXcQ' + Date.now().toString(36);
+                const videoUrl = 'https://youtu.be/' + videoId;
+                const channelUrl = 'https://www.youtube.com/@antonockr7618';
+                
+                addLog('✅ Video berhasil diupload ke @antonockr7618!', 'success');
+                addLog('🔗 URL: ' + videoUrl, 'success');
                 document.getElementById('uploadsToday').textContent = stats.uploadsToday;
 
-                alert('🎉 Video berhasil diupload ke YouTube!\n\nURL: https://youtu.be/' + generatedVideo.id);
+                alert(
+                    '🎉 Video berhasil diupload!\n\n' +
+                    '📺 Channel: @antonockr7618\n' +
+                    '🔗 Video URL: ' + videoUrl + '\n\n' +
+                    'Video sedang dalam processing...'
+                );
+
                 closeModal('resultsModal');
-            }, 3000);
+            }, 5000);
         }
 
         // ==================== YOUTUBE CONNECTION ====================
+        const YOUTUBE_CHANNEL_ID = 'UCantonockr7618'; // Replace with actual channel ID
+        const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@antonockr7618';
+
         function connectYouTube() {
             showLoading('🔗 Connecting to YouTube...');
-            addLog('Memulai koneksi YouTube...', 'info');
+            addLog('Memulai koneksi ke YouTube channel @antonockr7618...', 'info');
 
+            // Simulate OAuth flow for YouTube
             setTimeout(() => {
-                hideLoading();
+                // Check if we have stored credentials
+                const storedAuth = localStorage.getItem('youtubeAuth');
+                
+                if (!storedAuth) {
+                    // Simulate OAuth consent
+                    const consent = confirm(
+                        '🔗 Koneksi ke YouTube Channel\n\n' +
+                        '📺 Channel: @antonockr7618\n' +
+                        '🎯 Allow AI Video Shorts Generator untuk:\n' +
+                        '   • Upload video ke channel Anda\n' +
+                        '   • Melihat statistik channel\n' +
+                        '   • Membuat thumbnail\n\n' +
+                        'Klik OK untuk melanjutkan ke OAuth consent...'
+                    );
+
+                    if (!consent) {
+                        hideLoading();
+                        addLog('❌ Koneksi dibatalkan oleh user', 'error');
+                        return;
+                    }
+
+                    // Simulate OAuth window (in real app, this would open a popup)
+                    addLog('⏳ Menunggu consent dari Google...', 'info');
+                    
+                    setTimeout(() => {
+                        // Simulate successful OAuth
+                        const authData = {
+                            channelId: 'UCantonockr7618',
+                            channelName: 'antonockr7618',
+                            connectedAt: new Date().toISOString(),
+                            accessToken: 'ya29.' + Date.now(),
+                            refreshToken: 'refresh_' + Date.now(),
+                            expiresAt: new Date(Date.now() + 3600000).toISOString()
+                        };
+
+                        localStorage.setItem('youtubeAuth', JSON.stringify(authData));
+                        completeYouTubeConnection(authData);
+                    }, 2000);
+                } else {
+                    const authData = JSON.parse(storedAuth);
+                    completeYouTubeConnection(authData);
+                }
+            }, 1500);
+        }
+
+        function completeYouTubeConnection(authData) {
+            hideLoading();
+            youTubeConnected = true;
+            
+            // Update header status
+            document.getElementById('statusDot').classList.add('connected');
+            document.getElementById('statusText').textContent = 'YouTube: @antonockr7618';
+
+            // Update connect button
+            const btn = document.getElementById('youtubeConnectBtn');
+            btn.classList.add('connected');
+            btn.innerHTML = '✅ Connected to @antonockr7618';
+            btn.disabled = true;
+
+            // Show channel info
+            const channelInfo = document.getElementById('channelInfo');
+            channelInfo.classList.add('active');
+            
+            // Fetch channel stats (simulated)
+            fetchChannelStats();
+
+            // Save connection state
+            saveYouTubeState();
+
+            addLog('✅ YouTube channel @antonockr7618 berhasil connected!', 'success');
+        }
+
+        function fetchChannelStats() {
+            // Simulate fetching channel stats
+            // In real app, this would call YouTube Data API
+            
+            // Simulated stats (in production, fetch from YouTube API)
+            const channelStats = {
+                subscribers: Math.floor(Math.random() * 10000) + 100,
+                videos: Math.floor(Math.random() * 100) + 10,
+                views: Math.floor(Math.random() * 100000) + 1000
+            };
+
+            // Update UI
+            document.getElementById('subscriberCount').textContent = 
+                channelStats.subscribers >= 1000 ? 
+                (channelStats.subscribers / 1000).toFixed(1) + 'K' : 
+                channelStats.subscribers;
+            document.getElementById('videoCount').textContent = channelStats.videos;
+            document.getElementById('totalViews').textContent = 
+                channelStats.views >= 1000 ? 
+                (channelStats.views / 1000).toFixed(1) + 'K' : 
+                channelStats.views;
+
+            // Store stats
+            localStorage.setItem('youtubeStats', JSON.stringify(channelStats));
+        }
+
+        function disconnectYouTube() {
+            const confirm = window.confirm(
+                '🔌 Putuskan koneksi YouTube?\n\n' +
+                'Anda tidak akan bisa upload video secara otomatis.'
+            );
+
+            if (confirm) {
+                // Clear stored data
+                localStorage.removeItem('youtubeAuth');
+                localStorage.removeItem('youtubeStats');
+                
+                youTubeConnected = false;
+
+                // Reset UI
+                document.getElementById('statusDot').classList.remove('connected');
+                document.getElementById('statusText').textContent = 'YouTube: Not Connected';
+
+                const btn = document.getElementById('youtubeConnectBtn');
+                btn.classList.remove('connected');
+                btn.innerHTML = '🔗 Connect YouTube Channel';
+                btn.disabled = false;
+
+                document.getElementById('channelInfo').classList.remove('active');
+                
+                // Reset stats
+                document.getElementById('subscriberCount').textContent = '-';
+                document.getElementById('videoCount').textContent = '-';
+                document.getElementById('totalViews').textContent = '-';
+
+                addLog('🔌 YouTube channel disconnected', 'warning');
+            }
+        }
+
+        function saveYouTubeState() {
+            localStorage.setItem('youtubeConnected', 'true');
+        }
+
+        function loadYouTubeState() {
+            const auth = localStorage.getItem('youtubeAuth');
+            if (auth) {
                 youTubeConnected = true;
-                
                 document.getElementById('statusDot').classList.add('connected');
-                document.getElementById('statusText').textContent = 'YouTube: Connected';
-                
+                document.getElementById('statusText').textContent = 'YouTube: @antonockr7618';
+
                 const btn = document.getElementById('youtubeConnectBtn');
                 btn.classList.add('connected');
-                btn.innerHTML = '✅ Connected - Ready to Upload!';
-                
-                addLog('✅ YouTube berhasil connected!', 'success');
-            }, 2000);
+                btn.innerHTML = '✅ Connected to @antonockr7618';
+                btn.disabled = true;
+
+                document.getElementById('channelInfo').classList.add('active');
+                fetchChannelStats();
+            }
         }
 
         // ==================== SCHEDULER ====================
