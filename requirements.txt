@@ -1,29 +1,32 @@
-# Web Framework
-flask>=3.0.0
-flask-cors>=4.0.0
+# Core dependencies
+torch>=2.0.0
+transformers>=4.30.0
+diffusers>=0.20.0
+accelerate>=0.20.0
+safetensors>=0.3.0
 
-# AI/ML
-openai>=1.12.0
+# Video processing
+imageio>=2.30.0
+imageio-ffmpeg>=0.4.0
+opencv-python>=4.8.0
+pillow>=10.0.0
+numpy>=1.24.0
 
-# Video Processing
-moviepy>=1.0.3
-Pillow>=10.2.0
-numpy>=1.26.0
+# API & Configuration
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+fastapi>=0.100.0
+uvicorn[standard]>=0.23.0
+click>=8.1.0
+python-dotenv>=1.0.0
+httpx>=0.24.0
 
-# Audio Processing
-gtts>=2.5.1
-pydub>=0.25.1
-
-# YouTube API
-google-api-python-client>=2.116.0
-google-auth-oauthlib>=1.2.0
-google-auth>=2.27.0
-
-# Utilities
-requests>=2.31.0
-python-dotenv>=1.0.1
-apscheduler>=3.10.4
-python-dateutil>=2.8.2
-
-# Scientific computing
-scipy>=1.12.0
+# Testing & Quality
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+black>=23.7.0
+isort>=5.12.0
+flake8>=6.1.0
+mypy>=1.5.0
+pre-commit>=3.3.0
