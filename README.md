@@ -1,5 +1,8 @@
 # 🎬 AI Video Shorts Generator
 
+> **Created by Antono**
+
+
 Aplikasi AI untuk auto-generate video shorts dan auto-upload ke YouTube. Mendukung berbagai sumber konten termasuk stock video, AI voiceover, dan video generation.
 
 ## ✨ Fitur
