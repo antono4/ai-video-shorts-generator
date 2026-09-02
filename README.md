@@ -1,2 +1,32 @@
-Last updated: 2026-09-02 05:28:10 WIB
-Last updated: 2026-09-02 07:10:14 WIB
+# ai-video-shorts-generator
+
+
+
+## 📋 Overview
+
+This repository contains **26 files** and is built with the following technologies:
+
+Python
+
+## 🚀 Quick Start
+
+```bash
+pip install -r requirements.txt
+python main.py
+```
+
+## ✨ Features
+
+- 🔧 Environment config included
+- 📝 Auto-generated documentation
+
+## 🛠️ Technologies
+
+Python
+
+## 📄 License
+
+MIT License
+
+---
+*Last updated: 2026-09-02 07:25:51 WIB*
