@@ -1,33 +1,85 @@
-# ai-video-shorts-generator
+<!-- README ini dihasilkan otomatis oleh .github/workflows/generate-readme.yml -->
+<!-- Jangan edit manual: perubahan akan ditimpa pada run berikutnya. -->
 
+<h1 align="center">ai-video-shorts-generator 👋</h1>
 
+<p align="center">
+  <em>ai-video-shorts-generator</em>
+</p>
 
-## 📋 Overview
-
-This repository contains **26 files** and is built with the following technologies:
-
-Python
-
-## 🚀 Quick Start
-
-```bash
-pip install -r requirements.txt
-python main.py
-```
-
-## ✨ Features
-
-- 🔧 Environment config included
-- 📝 Auto-generated documentation
-
-## 🛠️ Technologies
-
-Python
-
-## 📄 License
-
-MIT License
+<p align="center">
+  <a href="https://github.com/antono4/ai-video-shorts-generator"><img alt="GitHub repo" src="https://img.shields.io/badge/GitHub-antono4/ai-video-shorts-generator-blue?logo=github"></a>
+  <a href="https://antono4.github.io/ai-video-shorts-generator/"><img alt="Live Demo" src="https://img.shields.io/badge/Live%20Demo-Online-success?logo=githubpages"></a>
+  <img alt="Files" src="https://img.shields.io/badge/Files-21-informational">
+  <img alt="Last commit" src="https://img.shields.io/github/last-commit/antono4/ai-video-shorts-generator">
+</p>
 
 ---
-*Last updated: 2026-09-16 07:36:12 WIB*
-Last updated: 2026-09-16 07:50:24 WIB
+
+## 📖 Tentang
+
+Repository **`ai-video-shorts-generator`** adalah proyek Python yang dibangun dengan HTML, Python.
+Demo berjalan tersedia melalui **GitHub Pages** di [`https://antono4.github.io/ai-video-shorts-generator/`](https://antono4.github.io/ai-video-shorts-generator/).
+
+## 🗂️ Struktur Proyek
+
+```
+ai-video-shorts-generator/
+.env.example
+.github/
+  workflows/
+.gitignore
+LICENSE
+app/
+  __init__.py
+  main.py
+  modules/
+  templates/
+cli.py
+client_secret.json.example
+config/
+  __init__.py
+  settings.py
+html-version/
+  index.html
+requirements.txt
+run.sh
+```
+
+## 🌐 Sub-Proyek / Demo
+
+Repository ini juga memuat sub-proyek (masing-masing punya `index.html` tersendiri):
+
+| Folder | Keterangan |
+|--------|-----------|
+| [`html-version`](./html-version) | AI Video Shorts Generator - Auto Create & Upload to YouTube |
+
+## 🛠️ Teknologi
+
+Berdasarkan ekstensi berkas yang terdeteksi di repository:
+
+- `HTML`
+- `Python`
+
+> Total **21 berkas** di repository (di luar `.git`, `node_modules`, `dist`, dan `build`).
+
+## 🚀 Menjalankan Secara Lokal
+
+Butuh Python 3:
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+## 📬 Kontak
+
+- GitHub: [antono4](https://github.com/antono4)
+
+## 📄 Lisensi
+
+Proyek ini dilisensikan di bawah MIT License — lihat berkas [`LICENSE`](./LICENSE).
+
+---
+
+<sub>README ini di-generate otomatis oleh GitHub Actions `.github/workflows/generate-readme.yml`.</sub>
