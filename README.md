@@ -1,85 +1,74 @@
-<!-- README ini dihasilkan otomatis oleh .github/workflows/generate-readme.yml -->
-<!-- Jangan edit manual: perubahan akan ditimpa pada run berikutnya. -->
+<!-- README ini dihasilkan otomatis oleh workflow .github/workflows/generate-readme.yml -->
+<!-- Jangan edit manual; perubahan akan ditim pada run berikutnya. -->
 
-<h1 align="center">ai-video-shorts-generator 👋</h1>
+<h1 align="center">Project 👋</h1>
 
 <p align="center">
-  <em>ai-video-shorts-generator</em>
+  <strong></strong>
 </p>
 
 <p align="center">
   <a href="https://github.com/antono4/ai-video-shorts-generator"><img alt="GitHub repo" src="https://img.shields.io/badge/GitHub-antono4/ai-video-shorts-generator-blue?logo=github"></a>
   <a href="https://antono4.github.io/ai-video-shorts-generator/"><img alt="Live Demo" src="https://img.shields.io/badge/Live%20Demo-Online-success?logo=githubpages"></a>
-  <img alt="Files" src="https://img.shields.io/badge/Files-21-informational">
-  <img alt="Last commit" src="https://img.shields.io/github/last-commit/antono4/ai-video-shorts-generator">
+  <img alt="Files" src="https://img.shields.io/badge/Files-24-informational">
+  <img alt="Updated" src="https://img.shields.io/badge/Updated-2026-09-18 07:17:00 WIB-lightgrey">
 </p>
 
 ---
 
 ## 📖 Tentang
 
-Repository **`ai-video-shorts-generator`** adalah proyek Python yang dibangun dengan HTML, Python.
-Demo berjalan tersedia melalui **GitHub Pages** di [`https://antono4.github.io/ai-video-shorts-generator/`](https://antono4.github.io/ai-video-shorts-generator/).
+Repository **`ai-video-shorts-generator`** adalah situs web pribadi / portofolio yang diterbitkan melalui **GitHub Pages**. Situs utama berada di [`https://antono4.github.io/ai-video-shorts-generator/`](https://antono4.github.io/ai-video-shorts-generator/).
 
 ## 🗂️ Struktur Proyek
 
 ```
 ai-video-shorts-generator/
-.env.example
-.github/
-  workflows/
-.gitignore
-LICENSE
-app/
-  __init__.py
-  main.py
-  modules/
-  templates/
-cli.py
-client_secret.json.example
-config/
-  __init__.py
-  settings.py
-html-version/
-  index.html
-requirements.txt
-run.sh
+├── index.html          # Halaman utama (landing / portofolio)
+├── assets/             # Aset statis (css, js, img, vendor)
+├── forms/               # Form handler (PHP)
+└── html-version/              # AI Video Shorts Generator - Auto Create & Upload to YouTube  ->  https://antono4.github.io/ai-video-shorts-generator/html-version/
 ```
 
 ## 🌐 Sub-Proyek / Demo
 
-Repository ini juga memuat sub-proyek (masing-masing punya `index.html` tersendiri):
+Situs ini juga memuat beberapa sub-proyek (masing-masing punya `index.html` tersendiri):
 
-| Folder | Keterangan |
-|--------|-----------|
-| [`html-version`](./html-version) | AI Video Shorts Generator - Auto Create & Upload to YouTube |
+| Folder | Demo Live | Keterangan |
+|--------|-----------|-----------|
+| [`html-version`](./html-version) | [https://antono4.github.io/ai-video-shorts-generator/html-version/](https://antono4.github.io/ai-video-shorts-generator/html-version/) | AI Video Shorts Generator - Auto Create & Upload to YouTube |
 
 ## 🛠️ Teknologi
 
-Berdasarkan ekstensi berkas yang terdeteksi di repository:
+Berdasarkan isi repository, proyek ini menggunakan:
 
 - `HTML`
 - `Python`
 
-> Total **21 berkas** di repository (di luar `.git`, `node_modules`, `dist`, dan `build`).
+> Total **24 file** terdeteksi di repository.
 
 ## 🚀 Menjalankan Secara Lokal
 
-Butuh Python 3:
+Karena ini situs statis (HTML/CSS/JS/PHP), cukup buka `index.html` di browser, atau jalankan server lokal:
 
 ```bash
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+# Tanpa dependency
+python3 -m http.server 8000
+# lalu buka http://localhost:8000
+
+# atau dengan PHP (untuk form handler di forms/)
+php -S localhost:8000
 ```
 
 ## 📬 Kontak
 
 - GitHub: [antono4](https://github.com/antono4)
+- Situs: [https://antono4.github.io/ai-video-shorts-generator/](https://antono4.github.io/ai-video-shorts-generator/)
 
 ## 📄 Lisensi
 
-Proyek ini dilisensikan di bawah MIT License — lihat berkas [`LICENSE`](./LICENSE).
+Lihat berkas [`LICENSE`](./LICENSE) untuk informasi lisensi.
 
 ---
 
-<sub>README ini di-generate otomatis oleh GitHub Actions `.github/workflows/generate-readme.yml`.</sub>
+<sub>README ini di-generate otomatis pada **2026-09-18 07:17:00 WIB** oleh GitHub Actions `.github/workflows/generate-readme.yml`.</sub>
